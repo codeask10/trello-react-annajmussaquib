@@ -1,8 +1,7 @@
 import axios from "axios";
 
-import { Key, Token } from "./config/Config";
+import { Key, Token, baseUrl } from "./Config";
 
-const baseUrl = "https://api.trello.com/1/";
 
 // Globally attaches to all request by default
 
@@ -11,6 +10,19 @@ axios.defaults.params = {
     token: Token
 }
 
+export const getAllBoards = async () => {
+    const response = await axios.get(
+        `${baseUrl}/members/me/boards?fields=name`
+    )
+    return response
+}
+
+export const createBoardByName = async (boardName) => {
+    const response = await axios.post(
+        `${baseUrl}/boards/?name=${boardName}`
+    )
+    return response
+}
 
 export const getAllLists = async (id) => {
     const res = await axios.get(`${baseUrl}/boards/${id}/lists`);
@@ -57,6 +69,39 @@ export const createCheckListById = async (cardId, name) => {
 export const deleteCheckListById = async (cardId, checkListId) => {
     const response = await axios.delete(
         `${baseUrl}/cards/${cardId}/checklists/${checkListId}?`
+    )
+    return response
+}
+
+export const getCheckItems = async (checkListId) => {
+    const response = await axios.get(
+        `${baseUrl}/checklists/${checkListId}/checkItems?`
+    )
+    return response
+}
+
+export const createCheckItems = async (checkListId, name) => {
+    const response = await axios.post(
+        `${baseUrl}/checklists/${checkListId}/checkItems?name=${name}`
+    )
+    return response
+}
+
+export const deleteCheckItemById = async (checkListId, checkItemId) => {
+    const response = await axios.delete(
+        `${baseUrl}/checklists/${checkListId}/checkItems/${checkItemId}?`
+    )
+    return response
+}
+
+export const updateCheckItems = async (
+    cardId,
+    checkListId,
+    itemId,
+    newState
+) => {
+    const response = await axios.put(
+        `${baseUrl}/cards/${cardId}/checklist/${checkListId}/checkItem/${itemId}?&state=${newState}`
     )
     return response
 }
