@@ -37,7 +37,7 @@ const ListForm = ({ handleAddTo, handleCancel }) => {
             <Box className='addbutton' sx={{ display: "flex", gap: 5, my: 2 }}>
                 <Button
                     type='submit'
-                    size='md'
+                    size='lg'
                     onClick={e => {
                         e.preventDefault()
                         handleAdder()
@@ -48,7 +48,7 @@ const ListForm = ({ handleAddTo, handleCancel }) => {
 
                 <CloseIcon
                     size='lg'
-                    className=''
+                    sx={{ margin: "auto 0" }}
                     onClick={() => {
                         handleCancel()
                     }}

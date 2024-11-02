@@ -5,7 +5,7 @@ import {
     getAllLists, createList, deleteListById
 } from '../TrelloApi.jsx'
 import Cards from './Cards.jsx';
-import { Box, Typography, IconButton, Paper } from '@mui/material';
+import { AppBar, Toolbar, Box, Typography, IconButton, Paper } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import ListForm from './ListForm.jsx';
@@ -34,7 +34,7 @@ const BoardList = () => {
         fetchAllListData()
     }, [])
 
-    const handleCreateList = async name => {
+    const handleCreateList = async (name) => {
         try {
             const res = await createList(id, name)
             setListsData([...listsData, res.data])
@@ -43,7 +43,7 @@ const BoardList = () => {
             setError(err.message)
         }
     }
-    const handleDeleteList = async listId => {
+    const handleDeleteList = async (listId) => {
         try {
             await deleteListById(listId)
             setListsData(listsData.filter(ele => ele.id !== listId))
@@ -58,7 +58,7 @@ const BoardList = () => {
 
     return (
         <>
-            <Box sx={{ mt: 8, display: 'flex', justifyContent: 'center' }}>
+            <Box sx={{ mt: 1, display: 'flex', justifyContent: 'center' }}>
                 <Box
                     sx={{
                         display: 'flex',
@@ -89,7 +89,7 @@ const BoardList = () => {
                                         backgroundColor: '#101204',
                                         color: 'white',
                                         flexShrink: 0,
-                                        minHeight: 'auto'
+                                        height: 'fit-content'
                                     }}
                                 >
                                     <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -109,7 +109,7 @@ const BoardList = () => {
                                     sx={{
                                         minWidth: '250px',
                                         maxWidth: '300px',
-                                        height: "120px",
+                                        height: "fit-content",
                                         m: 1,
                                         p: 2,
                                         backgroundColor: '#101204',
@@ -125,7 +125,7 @@ const BoardList = () => {
                                     sx={{
                                         minWidth: '250px',
                                         maxWidth: '300px',
-                                        height: "70px",
+                                        height: "fit-content",
                                         m: 1,
                                         p: 2,
                                         display: 'flex',
