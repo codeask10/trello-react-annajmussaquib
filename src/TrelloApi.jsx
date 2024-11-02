@@ -41,3 +41,22 @@ export const createCard = async (listId, cardName) => {
 export const deleteCardByID = async (cardId) => {
     const res = await axios.delete(`${baseUrl}/cards/${cardId}`);
 }
+
+export const getCheckList = async cardId => {
+    const response = await axios.get(
+        `${baseUrl}/cards/${cardId}/checklists?`
+    )
+    return response
+}
+export const createCheckListById = async (cardId, name) => {
+    const response = await axios.post(
+        `${baseUrl}/cards/${cardId}/checklists?&name=${name}`
+    )
+    return response
+}
+export const deleteCheckListById = async (cardId, checkListId) => {
+    const response = await axios.delete(
+        `${baseUrl}/cards/${cardId}/checklists/${checkListId}?`
+    )
+    return response
+}
