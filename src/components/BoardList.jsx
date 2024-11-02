@@ -98,7 +98,7 @@ const BoardList = () => {
                                             <DeleteIcon />
                                         </IconButton>
                                     </Box>
-                                    <Cards listId={list.id} />{console.log(list.id)}
+                                    <Cards listId={list.id} />
 
                                 </Paper>
                             ))}
