@@ -8,8 +8,9 @@ const AddCheckItem = ({ setShowCheckItem, checkListId, checkItemData, setCheckIt
             const data = await res.data;
             setCheckItemData([...checkItemData, data]);
             setShowCheckItem(false);
+            toast.success("Created Checklist Item Successfully ")
         } catch (error) {
-            console.error("Error occured", error);
+            toast.error("Internal Server Error", error);
         }
     }
 

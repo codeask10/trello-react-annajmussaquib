@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { Button, Checkbox, Typography, IconButton, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -21,7 +22,7 @@ const CheckListItems = ({ checkListId, selectedCardId }) => {
             setCheckItemData(data);
 
         } catch (error) {
-            console.error("Error Occured", error)
+            toast.error("Internal Server Error", error);
         }
         finally {
             setLoading(false);
@@ -36,8 +37,9 @@ const CheckListItems = ({ checkListId, selectedCardId }) => {
         try {
             await deleteCheckItemById(checkListId, checkItemId);
             setCheckItemData(checkItemData.filter(ele => ele.id !== checkItemId));
+            toast.success("Deleted Checklist Item Successfully ")
         } catch (error) {
-            console.error("Error Occured", error)
+            toast.error("Internal Server Error", error);
         }
     }
 
@@ -59,7 +61,7 @@ const CheckListItems = ({ checkListId, selectedCardId }) => {
 
 
         } catch (error) {
-            console.error("Error Occured", error);
+            toast.error("Internal Server Error", error);
         }
     };
 

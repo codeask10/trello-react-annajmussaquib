@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Box, Card, CardContent, Button, Typography, Popover, TextField } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import AddIcon from '@mui/icons-material/Add';
+import { toast } from 'react-toastify';
 
 import Spinner from "./Spinner";
 import { getAllBoards, createBoardByName } from '../TrelloApi';
@@ -13,6 +14,7 @@ const Boards = () => {
     const [loading, setLoading] = useState(true);
     const [anchorEl, setAnchorEl] = useState(null);
     const [newBoardName, setNewBoardName] = useState("");
+    console.log(newBoardName.length);
 
     const fetchData = async () => {
         try {
@@ -35,10 +37,11 @@ const Boards = () => {
             const res = await createBoardByName(newBoardName);
             const data = await res.data;
             setAllBoards((prevBoards) => [...prevBoards, data]);
+            toast.success("Created Board Successfully");
             setNewBoardName("");
             handleClose();
         } catch (error) {
-            console.error('Error creating board:', error);
+            toast.error(`Error occured, ${error}`);
         }
     };
 
@@ -112,7 +115,7 @@ const Boards = () => {
                         onChange={(e) => setNewBoardName(e.target.value)}
                         sx={{ my: 2 }}
                     />
-                    <Button variant="contained" color="primary" onClick={createBoard}>
+                    <Button variant="contained" disabled={newBoardName.length <= 0} color="primary" onClick={createBoard}>
                         Create
                     </Button>
                 </Box>

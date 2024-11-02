@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Button, Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
@@ -31,13 +32,13 @@ const CheckList = ({ setShowChecklist, showChecklist, selectedCard }) => {
     const fetchChecklist = async () => {
         setLoading(true)
         try {
-            const res = await getCheckList(selectedCard[0])
-            const data = await res.data
+            const res = await getCheckList(selectedCard[0]);
+            const data = await res.data;
             setCheckListData(data)
         } catch (err) {
-            setError(err.message)
+            toast.error("Internal Server Error", err);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     }
 
@@ -47,10 +48,11 @@ const CheckList = ({ setShowChecklist, showChecklist, selectedCard }) => {
 
     const handleDeleteCheckList = async (cardId, checkListId) => {
         try {
-            await deleteCheckListById(cardId, checkListId)
-            setCheckListData(checkListData.filter(Checklist => Checklist.id !== checkListId))
+            await deleteCheckListById(cardId, checkListId);
+            setCheckListData(checkListData.filter(Checklist => Checklist.id !== checkListId));
+            toast.success("Added Checklist Successfully");
         } catch (err) {
-            setError(err.message)
+            toast.error("Internal Server Error", err);
         }
     }
     const handleCloseChecklist = () => {

@@ -1,4 +1,6 @@
+import { toast } from 'react-toastify';
 import { Box } from '@mui/material';
+
 import { createCheckListById } from '../../TrelloApi.jsx';
 import Form from '../ListForm.jsx';
 
@@ -15,9 +17,10 @@ const AddCheckList = ({ setShowAddChecklist, checkListData, setCheckListData, se
             console.log(selectedCardId);
             const res = await createCheckListById(selectedCardId, name);
             setCheckListData([...checkListData, res.data]);
-            setShowAddChecklist(false)
+            setShowAddChecklist(false);
+            toast.success("Created Checklist Successfully");
         } catch (err) {
-            console.error("Error Occured", err);
+            toast.error("Internal Server Error", err);
         }
     }
     return (

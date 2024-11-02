@@ -1,14 +1,13 @@
-import React from 'react'
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import {
-    getAllLists, createList, deleteListById
-} from '../TrelloApi.jsx'
-import Cards from './Cards.jsx';
-import { AppBar, Toolbar, Box, Typography, IconButton, Paper } from '@mui/material';
+import { toast } from 'react-toastify';
+import { Box, Typography, IconButton, Paper } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+
+import { getAllLists, createList, deleteListById } from '../TrelloApi.jsx'
 import ListForm from './ListForm.jsx';
+import Cards from './Cards.jsx';
 import Spinner from './Spinner.jsx';
 
 const BoardList = () => {
@@ -22,9 +21,9 @@ const BoardList = () => {
         try {
             const res = await getAllLists(id)
             const data = await res.data
-            setListsData(data)
+            setListsData(data);
         } catch (err) {
-            console.error("Error", err);
+            toast.error("Internal Error", err);
         } finally {
             setLoading(false)
         }
@@ -36,19 +35,21 @@ const BoardList = () => {
 
     const handleCreateList = async (name) => {
         try {
-            const res = await createList(id, name)
-            setListsData([...listsData, res.data])
-            setShowListForm(false)
+            const res = await createList(id, name);
+            setListsData([...listsData, res.data]);
+            setShowListForm(false);
+            toast.success("Created List Successfully");
         } catch (err) {
-            setError(err.message)
+            toast.error("Internal Server Error", err);
         }
     }
     const handleDeleteList = async (listId) => {
         try {
-            await deleteListById(listId)
-            setListsData(listsData.filter(ele => ele.id !== listId))
+            await deleteListById(listId);
+            setListsData(listsData.filter(ele => ele.id !== listId));
+            toast.success("Deleted List Successfully");
         } catch (error) {
-            setError(error.message)
+            toast.error("Internal Server Error", error);
         }
     }
 

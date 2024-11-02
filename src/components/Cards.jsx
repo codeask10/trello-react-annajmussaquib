@@ -1,7 +1,9 @@
-import React, { useEffect, useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton, Typography, Box, Paper } from '@mui/material';
+
 import Checklist from './checklist/CheckList';
 import Form from './ListForm.jsx';
 import Spinner from './Spinner';
@@ -25,7 +27,7 @@ const Cards = ({ listId }) => {
             const data = await res.data;
             setCardsData(data);
         } catch (err) {
-            console.error("Error Occured", err);
+            toast.error("Internal Error", err);
         } finally {
             setLoading(false);
         }
@@ -41,8 +43,9 @@ const Cards = ({ listId }) => {
             const data = await res.data;
             setCardsData([...cardsData, data]);
             setShowCardForm(false);
+            toast.success("Added Card Successfuly");
         } catch (err) {
-            console.error("Error Occured", err);
+            toast.error("Internal Error", err);
         }
     }
 
@@ -50,8 +53,9 @@ const Cards = ({ listId }) => {
         try {
             deleteCardByID(cardId);
             setCardsData(cardsData.filter(card => card.id !== cardId));
+            toast.success("Removed Card Successfuly");
         } catch (err) {
-            console.error("Error Occured", err);
+            toast.error("Internal Error", err);
         }
     }
 
