@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Box, Typography, IconButton, Paper } from '@mui/material';
@@ -15,6 +15,7 @@ const BoardList = () => {
     const [listsData, setListsData] = useState([]);
     const [showListForm, setShowListForm] = useState(false);
     const id = useParams().id
+    const navigate = useNavigate();
 
     const fetchAllListData = async () => {
         setLoading(true)
@@ -24,6 +25,7 @@ const BoardList = () => {
             setListsData(data);
         } catch (err) {
             toast.error("Internal Error", err);
+            navigate("/error-page");
         } finally {
             setLoading(false)
         }
@@ -41,6 +43,7 @@ const BoardList = () => {
             toast.success("Created List Successfully");
         } catch (err) {
             toast.error("Internal Server Error", err);
+            navigate("/error-page");
         }
     }
     const handleDeleteList = async (listId) => {
@@ -50,6 +53,7 @@ const BoardList = () => {
             toast.success("Deleted List Successfully");
         } catch (error) {
             toast.error("Internal Server Error", error);
+            navigate("/error-page");
         }
     }
 

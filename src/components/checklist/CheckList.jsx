@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Button, Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -28,6 +29,7 @@ const CheckList = ({ setShowChecklist, showChecklist, selectedCard }) => {
     const [checkListData, setCheckListData] = useState([]);
     const [showAddChecklist, setShowAddChecklist] = useState(false);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const fetchChecklist = async () => {
         setLoading(true)
@@ -37,6 +39,7 @@ const CheckList = ({ setShowChecklist, showChecklist, selectedCard }) => {
             setCheckListData(data)
         } catch (err) {
             toast.error("Internal Server Error", err);
+            navigate("/error-page");
         } finally {
             setLoading(false);
         }
@@ -53,6 +56,7 @@ const CheckList = ({ setShowChecklist, showChecklist, selectedCard }) => {
             toast.success("Added Checklist Successfully");
         } catch (err) {
             toast.error("Internal Server Error", err);
+            navigate("/error-page");
         }
     }
     const handleCloseChecklist = () => {

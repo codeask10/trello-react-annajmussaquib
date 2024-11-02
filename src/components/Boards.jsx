@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Box, Card, CardContent, Button, Typography, Popover, TextField } from '@mui/material';
 import Grid from '@mui/material/Grid2';
@@ -14,7 +14,7 @@ const Boards = () => {
     const [loading, setLoading] = useState(true);
     const [anchorEl, setAnchorEl] = useState(null);
     const [newBoardName, setNewBoardName] = useState("");
-    console.log(newBoardName.length);
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
@@ -22,6 +22,7 @@ const Boards = () => {
             setAllBoards(res.data);
         } catch (error) {
             console.error('Error fetching boards:', error);
+            navigate("/error-page");
         } finally {
             setLoading(false);
         }

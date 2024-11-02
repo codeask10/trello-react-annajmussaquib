@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Box } from '@mui/material';
 
@@ -5,8 +6,7 @@ import { createCheckListById } from '../../TrelloApi.jsx';
 import Form from '../ListForm.jsx';
 
 const AddCheckList = ({ setShowAddChecklist, checkListData, setCheckListData, selectedCardId }) => {
-
-
+    const navigate = useNavigate();
     const handleCancelCheckList = () => {
         setShowAddChecklist(false);
     }
@@ -21,6 +21,7 @@ const AddCheckList = ({ setShowAddChecklist, checkListData, setCheckListData, se
             toast.success("Created Checklist Successfully");
         } catch (err) {
             toast.error("Internal Server Error", err);
+            navigate("/error-page");
         }
     }
     return (

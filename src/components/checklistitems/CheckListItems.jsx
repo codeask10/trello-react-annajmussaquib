@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Button, Checkbox, Typography, IconButton, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -13,6 +14,7 @@ const CheckListItems = ({ checkListId, selectedCardId }) => {
     const [checkItemData, setCheckItemData] = useState([]);
     const [showCheckItem, setShowCheckItem] = useState(false);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const fetchCheckItem = async (checkListId) => {
         setLoading(true);
@@ -23,6 +25,7 @@ const CheckListItems = ({ checkListId, selectedCardId }) => {
 
         } catch (error) {
             toast.error("Internal Server Error", error);
+            navigate("/error-page");
         }
         finally {
             setLoading(false);
@@ -40,6 +43,7 @@ const CheckListItems = ({ checkListId, selectedCardId }) => {
             toast.success("Deleted Checklist Item Successfully ")
         } catch (error) {
             toast.error("Internal Server Error", error);
+            navigate("/error-page");
         }
     }
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -19,6 +20,7 @@ const Cards = ({ listId }) => {
     const [showChecklist, setShowChecklist] = useState(false);
     const [selectedCard, setSelectedCard] = useState([]);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const fetchCardsData = async () => {
         setLoading(true);
@@ -28,6 +30,7 @@ const Cards = ({ listId }) => {
             setCardsData(data);
         } catch (err) {
             toast.error("Internal Error", err);
+            navigate("/error-page");
         } finally {
             setLoading(false);
         }
@@ -46,6 +49,7 @@ const Cards = ({ listId }) => {
             toast.success("Added Card Successfuly");
         } catch (err) {
             toast.error("Internal Error", err);
+            navigate("/error-page");
         }
     }
 
@@ -56,6 +60,7 @@ const Cards = ({ listId }) => {
             toast.success("Removed Card Successfuly");
         } catch (err) {
             toast.error("Internal Error", err);
+            navigate("/error-page");
         }
     }
 
