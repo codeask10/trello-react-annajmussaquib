@@ -42,6 +42,7 @@ const ListForm = ({ handleAddTo, handleCancel }) => {
                         e.preventDefault()
                         handleAdder()
                     }}
+                    disabled={inputValue.length <= 0}
                 >
                     Add
                 </Button>
