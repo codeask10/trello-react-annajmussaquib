@@ -13,8 +13,6 @@ const AddCheckList = ({ setShowAddChecklist, checkListData, setCheckListData, se
 
     const handleCreateCheckList = async (name) => {
         try {
-            console.log(name);
-            console.log(selectedCardId);
             const res = await createCheckListById(selectedCardId, name);
             setCheckListData([...checkListData, res.data]);
             setShowAddChecklist(false);
